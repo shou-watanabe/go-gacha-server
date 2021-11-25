@@ -23,12 +23,6 @@ func NewUserHandler(userUsecase usecase.UserUsecase) UserHandler {
 	return &userHandler{userUsecase: userUsecase}
 }
 
-type responseTask struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
-	Token string `json:"token"`
-}
-
 func (uh *userHandler) Create() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var req request.UserCreateRequest
