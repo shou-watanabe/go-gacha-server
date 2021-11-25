@@ -41,9 +41,7 @@ func (uh *userHandler) Create() echo.HandlerFunc {
 			return c.JSON(http.StatusBadRequest, err.Error())
 		}
 
-		res := responseTask{
-			ID:    createdUser.Id,
-			Name:  createdUser.Name,
+		res := response.UserCreateResponse{
 			Token: createdUser.Token,
 		}
 
