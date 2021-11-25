@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"errors"
 	"techtrain-mission/src/domain/entity"
 	"techtrain-mission/src/domain/repository"
 
@@ -15,10 +16,12 @@ func NewUserRepository(conn *gorm.DB) repository.UserRepository {
 	return &userRepository{Conn: conn}
 }
 
-func (ur *userRepository) Create(ue *entity.User) (*entity.User, error) {
-	ur.Conn.Table("users").Exec("insert users (name, token) value (?, UUID())", ue.Name).Scan(&ue)
-
-	return ue, nil
+func (ur *userRepository) Create(name string) (ue *entity.User, err error) {
+	ur.Conn.Table("users").Exec("insert users (name, token) value (?, UUID())", name).Scan(&ue)
+	if ue.Name == "" {
+		err = errors.New("use not found")
+	}
+	return
 }
 
 func (ur *userRepository) Get(token string) (*entity.User, error) {

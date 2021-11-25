@@ -20,8 +20,7 @@ func NewUserUsecase(ur repository.UserRepository) UserUsecase {
 }
 
 func (uu *userUsecase) Create(name string) (user *entity.User, err error) {
-	ue := &entity.User{Name: name}
-	user, err = uu.userRepo.Create(ue)
+	user, err = uu.userRepo.Create(name)
 	return
 }
 
