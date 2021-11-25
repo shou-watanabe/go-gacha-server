@@ -7,6 +7,7 @@ import (
 
 type UserUsecase interface {
 	Create(string) (*entity.User, error)
+	Get(token string) (*entity.User, error)
 }
 
 type userUsecase struct {
@@ -18,8 +19,13 @@ func NewUserUsecase(ur repository.UserRepository) UserUsecase {
 	return &userUsecase
 }
 
-func (usecase *userUsecase) Create(name string) (user *entity.User, err error) {
+func (uu *userUsecase) Create(name string) (user *entity.User, err error) {
 	ue := &entity.User{Name: name}
-	user, err = usecase.userRepo.Create(ue)
+	user, err = uu.userRepo.Create(ue)
+	return
+}
+
+func (uu *userUsecase) Get(token string) (user *entity.User, err error) {
+	user, err = uu.userRepo.Get(token)
 	return
 }

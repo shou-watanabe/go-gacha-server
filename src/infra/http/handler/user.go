@@ -2,8 +2,8 @@ package handler
 
 import (
 	"net/http"
-	_ "techtrain-mission/src/domain/entity"
 	"techtrain-mission/src/infra/http/request"
+	"techtrain-mission/src/infra/http/response"
 	"techtrain-mission/src/usecase"
 
 	"github.com/labstack/echo"
@@ -11,6 +11,7 @@ import (
 
 type UserHandler interface {
 	Create() echo.HandlerFunc
+	Get() echo.HandlerFunc
 }
 
 type userHandler struct {
@@ -46,5 +47,27 @@ func (uh *userHandler) Create() echo.HandlerFunc {
 		}
 
 		return c.JSON(http.StatusCreated, res)
+	}
+}
+
+func (uh *userHandler) Get() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		token := c.Request().Header.Get("X-Token")
+
+		if token == "" {
+			return c.JSON(http.StatusBadRequest, "token not found")
+		}
+
+		targetUser, err := uh.userUsecase.Get(token)
+
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
+		}
+
+		res := response.UserGetResponse{
+			Name: targetUser.Name,
+		}
+
+		return c.JSON(http.StatusOK, res)
 	}
 }

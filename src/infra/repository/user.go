@@ -20,3 +20,12 @@ func (ur *userRepository) Create(ue *entity.User) (*entity.User, error) {
 
 	return ue, nil
 }
+
+func (ur *userRepository) Get(token string) (*entity.User, error) {
+	user := &entity.User{}
+	if err := ur.Conn.Table("users").First(&user, "token = ?", token).Error; err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}

@@ -6,6 +6,6 @@ import (
 
 func InitRouting(e *echo.Echo, userHandler UserHandler) {
 	e.POST("/user/create", userHandler.Create())
-	// e.GET("/user/get", userHandler.GET())
+	e.GET("/user/get", userHandler.Get())
 	// e.GET("/user/update", userHandler.Update())
 }
