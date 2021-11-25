@@ -32,3 +32,11 @@ func (ur *userRepository) Get(token string) (*entity.User, error) {
 
 	return user, nil
 }
+
+func (ur *userRepository) Update(name string, token string) (*entity.User, error) {
+	user := &entity.User{Token: token}
+	if err := ur.Conn.Table("users").Update("name", name).Error; err != nil {
+		return nil, err
+	}
+	return user, nil
+}

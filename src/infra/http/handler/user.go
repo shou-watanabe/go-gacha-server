@@ -12,6 +12,7 @@ import (
 type UserHandler interface {
 	Create() echo.HandlerFunc
 	Get() echo.HandlerFunc
+	Update() echo.HandlerFunc
 }
 
 type userHandler struct {
@@ -69,5 +70,27 @@ func (uh *userHandler) Get() echo.HandlerFunc {
 		}
 
 		return c.JSON(http.StatusOK, res)
+	}
+}
+
+func (uh *userHandler) Update() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		token := c.Request().Header.Get("X-Token")
+
+		if token == "" {
+			return c.JSON(http.StatusBadRequest, "token not found")
+		}
+
+		var req request.UserUpdateRequest
+		if err := c.Bind(&req); err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
+		}
+
+		_, err := uh.userUsecase.Update(req.Name, token)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
+		}
+
+		return c.JSON(http.StatusOK, nil)
 	}
 }
