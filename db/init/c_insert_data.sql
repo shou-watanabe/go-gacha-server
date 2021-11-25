@@ -1,3 +1,3 @@
 use tech_train;
 
-insert into users (name) value ('太郎');
+insert users (name, token) value ('太郎', UUID());
