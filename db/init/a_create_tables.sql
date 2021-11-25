@@ -1,4 +1,4 @@
-use tech_train;
+use go_database;
 
 create table users (
     id int unsigned primary key auto_increment,
