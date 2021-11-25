@@ -4,13 +4,26 @@ import (
 	"fmt"
 	"time"
 
+	"techtrain-mission/src/infra/http/handler"
+	"techtrain-mission/src/infra/repository"
+	"techtrain-mission/src/usecase"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"github.com/labstack/echo"
 )
 
 func main() {
 	db := sqlConnect()
 	defer db.Close()
+
+	userRepository := repository.NewUserRepository(db)
+	userUsecase := usecase.NewUserUsecase(userRepository)
+	userHandler := handler.NewUserHandler(userUsecase)
+
+	e := echo.New()
+	handler.InitRouting(e, userHandler)
+	e.Logger.Fatal(e.Start(":8080"))
 }
 
 func sqlConnect() (database *gorm.DB) {
