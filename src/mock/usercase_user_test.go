@@ -38,7 +38,7 @@ func TestCreate(t *testing.T) {
 	}
 }
 
-func Get(t *testing.T) {
+func TestGet(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -61,7 +61,7 @@ func Get(t *testing.T) {
 	}
 }
 
-func Update(t *testing.T) {
+func TestUpdate(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
