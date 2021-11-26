@@ -1,7 +1,9 @@
-use go_database;
+CREATE DATABASE IF NOT EXISTS go _database;
 
-create table users (
-    id int unsigned primary key auto_increment,
-    name varchar(120) not null,
-    token varchar(36) not null unique
+USE go_database;
+
+CREATE TABLE IF NOT EXISTS users (
+    id int UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(120) NOT NULL,
+    token VARCHAR(36) NOT NULL UNIQUE
 );
