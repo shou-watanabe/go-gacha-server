@@ -2,6 +2,7 @@
 - :tada: 初めてのコミット（Initial Commit）[tada]
 - :bookmark: バージョンタグ（Version Tag）[bookmark]
 - :sparkles: 新機能（New Feature）[sparkles]
+- :memo: 更新(Update) [memo]
 - :bug: バグ修正（Bagfix）[bug]
 - :recycle: リファクタリング(Refactoring)[recycle]
 - :books: ドキュメント（Documentation）[books]
