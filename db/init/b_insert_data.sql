@@ -1,3 +1,3 @@
-use go_database;
+USE go_database;
 
-insert users (name, token) value ('太郎', UUID());
+INSERT users (name, token) VALUE ('太郎', UUID());
