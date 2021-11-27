@@ -2,8 +2,8 @@ package handler
 
 import (
 	"net/http"
-	"techtrain-mission/src/infra/http/request"
-	"techtrain-mission/src/infra/http/response"
+	"techtrain-mission/src/presen/request"
+	"techtrain-mission/src/presen/response"
 	"techtrain-mission/src/usecase"
 
 	"github.com/labstack/echo"
