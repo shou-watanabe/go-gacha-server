@@ -16,12 +16,14 @@ func NewUserRepository(conn *gorm.DB) repository.UserRepository {
 	return &userRepository{Conn: conn}
 }
 
-func (ur *userRepository) Create(name string) (ue *entity.User, err error) {
+func (ur *userRepository) Create(name string) (*entity.User, error) {
+	ue := &entity.User{}
 	ur.Conn.Table("users").Exec("insert users (name, token) value (?, UUID())", name).Scan(&ue)
 	if ue.Name == "" {
-		err = errors.New("use not found")
+		err := errors.New("use not found")
+		return ue, err
 	}
-	return
+	return ue, nil
 }
 
 func (ur *userRepository) Get(token string) (*entity.User, error) {
