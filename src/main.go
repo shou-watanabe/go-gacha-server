@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"techtrain-mission/src/infra/http/handler"
-	"techtrain-mission/src/infra/repository"
+	"techtrain-mission/src/infra"
+	"techtrain-mission/src/presen/handler"
 	"techtrain-mission/src/usecase"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -17,7 +17,7 @@ func main() {
 	db := sqlConnect()
 	defer db.Close()
 
-	userRepository := repository.NewUserRepository(db)
+	userRepository := infra.NewUserRepository(db)
 	userUsecase := usecase.NewUserUsecase(userRepository)
 	userHandler := handler.NewUserHandler(userUsecase)
 
