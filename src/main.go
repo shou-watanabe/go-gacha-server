@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"time"
 
 	"techtrain-mission/src/infra"
@@ -23,7 +24,11 @@ func main() {
 
 	e := echo.New()
 	handler.InitRouting(e, userHandler)
-	e.Logger.Fatal(e.Start(":8080"))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	e.Logger.Fatal(e.Start(":" + port))
 }
 
 func sqlConnect() (database *gorm.DB) {
