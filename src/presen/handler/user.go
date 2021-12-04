@@ -2,11 +2,13 @@ package handler
 
 import (
 	"net/http"
+
+	"github.com/labstack/echo"
+
+	"techtrain-mission/src/core/logger"
 	"techtrain-mission/src/presen/request"
 	"techtrain-mission/src/presen/response"
 	"techtrain-mission/src/usecase"
-
-	"github.com/labstack/echo"
 )
 
 type UserHandler interface {
@@ -25,6 +27,9 @@ func NewUserHandler(userUsecase usecase.UserUsecase) UserHandler {
 
 func (uh *userHandler) Create() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		r := c.Request()
+		logger.HttpLogging(r).Info("user create request")
+
 		var req request.UserCreateRequest
 		if err := c.Bind(&req); err != nil {
 			return c.JSON(http.StatusBadRequest, err.Error())
@@ -45,6 +50,9 @@ func (uh *userHandler) Create() echo.HandlerFunc {
 
 func (uh *userHandler) Get() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		r := c.Request()
+		logger.HttpLogging(r).Info("user get request")
+
 		token := c.Request().Header.Get("X-Token")
 
 		if token == "" {
@@ -67,6 +75,9 @@ func (uh *userHandler) Get() echo.HandlerFunc {
 
 func (uh *userHandler) Update() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		r := c.Request()
+		logger.HttpLogging(r).Info("user update request")
+
 		token := c.Request().Header.Get("X-Token")
 
 		if token == "" {
