@@ -27,6 +27,5 @@ func HttpLogging(r *http.Request) *logrus.Entry {
 		"method": r.Method,
 		"host":   r.Host,
 		"path":   r.URL.Path,
-		"Ua":     r.UserAgent,
 	})
 }
