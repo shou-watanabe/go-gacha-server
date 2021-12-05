@@ -2,11 +2,12 @@ package handler
 
 import (
 	"net/http"
+
+	"github.com/labstack/echo"
+
 	"techtrain-mission/src/presen/request"
 	"techtrain-mission/src/presen/response"
 	"techtrain-mission/src/usecase"
-
-	"github.com/labstack/echo"
 )
 
 type UserHandler interface {

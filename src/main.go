@@ -7,6 +7,7 @@ import (
 
 	"techtrain-mission/src/infra"
 	"techtrain-mission/src/presen/handler"
+	"techtrain-mission/src/presen/middleware"
 	"techtrain-mission/src/usecase"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -23,6 +24,7 @@ func main() {
 	userHandler := handler.NewUserHandler(userUsecase)
 
 	e := echo.New()
+	e.Use(middleware.Logger)
 	handler.InitRouting(e, userHandler)
 	port := os.Getenv("PORT")
 	if port == "" {
