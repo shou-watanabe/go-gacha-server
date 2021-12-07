@@ -9,9 +9,10 @@ import (
 func Logger(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		r := c.Request()
-		logger.HttpLogging(r).Info("incoming http request")
+		logger.HttpLogging("success", r)
 		if err := next(c); err != nil {
 			c.Error(err)
+			return err
 		}
 		return nil
 	}
