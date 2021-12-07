@@ -2,30 +2,16 @@ package logger
 
 import (
 	"net/http"
-	"os"
 
-	"github.com/sirupsen/logrus"
+	"go.uber.org/zap"
 )
 
-func init() {
-	logrus.SetOutput(os.Stdout)
-	logrus.SetFormatter(&logrus.TextFormatter{
-		ForceColors:   true,
-		FullTimestamp: true,
-	})
-
-	switch os.Getenv("TEST_ENV") {
-	case "production", "staging":
-		logrus.SetLevel(logrus.InfoLevel)
-	default:
-		logrus.SetLevel(logrus.DebugLevel)
-	}
-}
-
-func HttpLogging(r *http.Request) *logrus.Entry {
-	return logrus.WithFields(logrus.Fields{
-		"method": r.Method,
-		"host":   r.Host,
-		"path":   r.URL.Path,
-	})
+func HttpLogging(msg string, r *http.Request) {
+	logger, _ := zap.NewProduction()
+	logger.Info(
+		msg,
+		zap.String("method", r.Method),
+		zap.String("host", r.Host),
+		zap.String("path", r.URL.Path),
+	)
 }
