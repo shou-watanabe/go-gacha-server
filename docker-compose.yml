@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: /bin/sh -c "go run src/main.go"
+    command: /bin/sh -c "go run src/main.go src/wire_gen.go"
     stdin_open: true
     tty: true
     volumes:

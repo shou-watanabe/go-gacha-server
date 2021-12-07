@@ -5,10 +5,8 @@ import (
 	"os"
 	"time"
 
-	"techtrain-mission/src/infra"
 	"techtrain-mission/src/presen/handler"
 	"techtrain-mission/src/presen/middleware"
-	"techtrain-mission/src/usecase"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -19,9 +17,7 @@ func main() {
 	db := sqlConnect()
 	defer db.Close()
 
-	userRepository := infra.NewUserRepository(db)
-	userUsecase := usecase.NewUserUsecase(userRepository)
-	userHandler := handler.NewUserHandler(userUsecase)
+	userHandler := initUserHandler(db)
 
 	e := echo.New()
 	e.Use(middleware.Logger)
