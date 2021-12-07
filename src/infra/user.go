@@ -2,8 +2,8 @@ package infra
 
 import (
 	"errors"
-	"techtrain-mission/src/domain/entity"
-	"techtrain-mission/src/domain/repository"
+	userE "techtrain-mission/src/domain/entity/user"
+	userR "techtrain-mission/src/domain/repository/user"
 
 	"github.com/jinzhu/gorm"
 )
@@ -12,12 +12,12 @@ type userRepository struct {
 	Conn *gorm.DB
 }
 
-func NewUserRepository(conn *gorm.DB) repository.UserRepository {
+func NewUserRepository(conn *gorm.DB) userR.Repository {
 	return &userRepository{Conn: conn}
 }
 
-func (ur *userRepository) Create(name string) (*entity.User, error) {
-	ue := &entity.User{}
+func (ur *userRepository) Create(name string) (*userE.Entity, error) {
+	ue := &userE.Entity{}
 	ur.Conn.Table("users").Exec("insert users (name, token) value (?, UUID())", name).Scan(&ue)
 	if ue.Name == "" {
 		err := errors.New("use not found")
@@ -26,8 +26,8 @@ func (ur *userRepository) Create(name string) (*entity.User, error) {
 	return ue, nil
 }
 
-func (ur *userRepository) Get(token string) (*entity.User, error) {
-	user := &entity.User{}
+func (ur *userRepository) Get(token string) (*userE.Entity, error) {
+	user := &userE.Entity{}
 	if err := ur.Conn.Table("users").First(&user, "token = ?", token).Error; err != nil {
 		return nil, err
 	}
@@ -35,8 +35,8 @@ func (ur *userRepository) Get(token string) (*entity.User, error) {
 	return user, nil
 }
 
-func (ur *userRepository) Update(name string, token string) (*entity.User, error) {
-	user := &entity.User{Token: token}
+func (ur *userRepository) Update(name string, token string) (*userE.Entity, error) {
+	user := &userE.Entity{Token: token}
 	if err := ur.Conn.Table("users").Update("name", name).Error; err != nil {
 		return nil, err
 	}

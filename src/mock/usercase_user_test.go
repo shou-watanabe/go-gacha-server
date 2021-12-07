@@ -2,28 +2,23 @@ package mock_repository
 
 import (
 	reflect "reflect"
-	"techtrain-mission/src/domain/entity"
-	"techtrain-mission/src/usecase"
 	"testing"
 
 	"github.com/golang/mock/gomock"
-)
 
-// type UserUsecase interface {
-// 	Create(string) (*entity.User, error)
-// 	Get(string) (*entity.User, error)
-// 	Update(string, string) (*entity.User, error)
-// }
+	"techtrain-mission/src/domain/entity/user"
+	"techtrain-mission/src/usecase"
+)
 
 func TestCreate(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	var expected *entity.User
+	var expected *user.Entity
 	var err error
 	name := "test"
 
-	ur := NewMockUserRepository(ctrl)
+	ur := NewMockRepository(ctrl)
 	ur.EXPECT().Create(name).Return(expected, err)
 
 	uu := usecase.NewUserUsecase(ur)
@@ -42,11 +37,11 @@ func TestGet(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	var expected *entity.User
+	var expected *user.Entity
 	var err error
 	token := "test"
 
-	ur := NewMockUserRepository(ctrl)
+	ur := NewMockRepository(ctrl)
 	ur.EXPECT().Get(token).Return(expected, err)
 
 	uu := usecase.NewUserUsecase(ur)
@@ -65,12 +60,12 @@ func TestUpdate(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	var expected *entity.User
+	var expected *user.Entity
 	var err error
 	name := "test"
 	token := "test"
 
-	ur := NewMockUserRepository(ctrl)
+	ur := NewMockRepository(ctrl)
 	ur.EXPECT().Update(name, token).Return(expected, err)
 
 	uu := usecase.NewUserUsecase(ur)
