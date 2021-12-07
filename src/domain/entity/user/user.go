@@ -1,6 +1,6 @@
-package entity
+package user
 
-type User struct {
+type Entity struct {
 	Id    int
 	Name  string
 	Token string
