@@ -7,14 +7,14 @@ import (
 	"github.com/google/wire"
 	"github.com/jinzhu/gorm"
 
-	"techtrain-mission/src/infra"
+	infra "techtrain-mission/src/infra/user"
 	"techtrain-mission/src/presen/handler"
 	"techtrain-mission/src/usecase"
 )
 
 func initUserHandler(db *gorm.DB) handler.UserHandler {
 	wire.Build(
-		infra.NewUserRepository,
+		infra.NewRepository,
 		usecase.NewUserUsecase,
 		handler.NewUserHandler,
 	)
