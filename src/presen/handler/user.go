@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	myError "techtrain-mission/src/core/error"
 	"techtrain-mission/src/presen/request"
 	"techtrain-mission/src/presen/response"
 	"techtrain-mission/src/usecase"
@@ -29,7 +30,7 @@ func NewUserHandler(userUsecase usecase.UserUsecase) UserHandler {
 func (uh *userHandler) Create(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed)
-		log.Println("Method not Found")
+		zap.Error(myError.ErrMethodNotFound)
 		return
 	}
 
@@ -60,7 +61,7 @@ func (uh *userHandler) Create(w http.ResponseWriter, r *http.Request) {
 func (uh *userHandler) Get(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		w.WriteHeader(http.StatusMethodNotAllowed)
-		log.Println("Method not Found")
+		zap.Error(myError.ErrMethodNotFound)
 		return
 	}
 
@@ -91,14 +92,14 @@ func (uh *userHandler) Get(w http.ResponseWriter, r *http.Request) {
 func (uh *userHandler) Update(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPut {
 		w.WriteHeader(http.StatusMethodNotAllowed)
-		log.Println("Method not Found")
+		zap.Error(myError.ErrMethodNotFound)
 		return
 	}
 
 	token := r.Header.Get("X-Token")
 
 	if token == "" {
-		log.Println("token not found")
+		zap.Error(myError.ErrTokenNotFound)
 	}
 
 	var req request.UserUpdateRequest
