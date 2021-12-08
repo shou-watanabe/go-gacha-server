@@ -1,9 +1,9 @@
 package handler
 
 import (
+	"encoding/json"
+	"log"
 	"net/http"
-
-	"github.com/labstack/echo"
 
 	"techtrain-mission/src/presen/request"
 	"techtrain-mission/src/presen/response"
@@ -11,9 +11,9 @@ import (
 )
 
 type UserHandler interface {
-	Create() echo.HandlerFunc
-	Get() echo.HandlerFunc
-	Update() echo.HandlerFunc
+	Create(http.ResponseWriter, *http.Request)
+	Get(http.ResponseWriter, *http.Request)
+	Update(http.ResponseWriter, *http.Request)
 }
 
 type userHandler struct {
@@ -24,66 +24,93 @@ func NewUserHandler(userUsecase usecase.UserUsecase) UserHandler {
 	return &userHandler{userUsecase: userUsecase}
 }
 
-func (uh *userHandler) Create() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		var req request.UserCreateRequest
-		if err := c.Bind(&req); err != nil {
-			return c.JSON(http.StatusBadRequest, err.Error())
-		}
+func (uh *userHandler) Create(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		log.Println("Method not Found")
+		return
+	}
 
-		createdUser, err := uh.userUsecase.Create(req.Name)
-		if err != nil {
-			return c.JSON(http.StatusBadRequest, err.Error())
-		}
+	var req request.UserCreateRequest
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&req)
+	if err != nil {
+		log.Println(err)
+	}
 
-		res := response.UserCreateResponse{
-			Token: createdUser.Token,
-		}
+	createdUser, err := uh.userUsecase.Create(req.Name)
+	if err != nil {
+		log.Println(err)
+	}
 
-		return c.JSON(http.StatusCreated, res)
+	res := response.UserCreateResponse{
+		Token: createdUser.Token,
+	}
+
+	w.WriteHeader(http.StatusCreated)
+
+	je := json.NewEncoder(w)
+	if err := je.Encode(res); err != nil {
+		log.Println(err)
 	}
 }
 
-func (uh *userHandler) Get() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		token := c.Request().Header.Get("X-Token")
+func (uh *userHandler) Get(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		log.Println("Method not Found")
+		return
+	}
 
-		if token == "" {
-			return c.JSON(http.StatusBadRequest, "token not found")
-		}
+	token := r.Header.Get("X-Token")
 
-		targetUser, err := uh.userUsecase.Get(token)
+	if token == "" {
+		log.Println("token not found")
+	}
 
-		if err != nil {
-			return c.JSON(http.StatusBadRequest, err.Error())
-		}
+	targetUser, err := uh.userUsecase.Get(token)
 
-		res := response.UserGetResponse{
-			Name: targetUser.Name,
-		}
+	if err != nil {
+		log.Println(err)
+	}
 
-		return c.JSON(http.StatusOK, res)
+	res := response.UserGetResponse{
+		Name: targetUser.Name,
+	}
+
+	w.WriteHeader(http.StatusOK)
+
+	je := json.NewEncoder(w)
+	if err := je.Encode(res); err != nil {
+		log.Println(err)
 	}
 }
 
-func (uh *userHandler) Update() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		token := c.Request().Header.Get("X-Token")
+func (uh *userHandler) Update(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPut {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		log.Println("Method not Found")
+		return
+	}
 
-		if token == "" {
-			return c.JSON(http.StatusBadRequest, "token not found")
-		}
+	token := r.Header.Get("X-Token")
 
-		var req request.UserUpdateRequest
-		if err := c.Bind(&req); err != nil {
-			return c.JSON(http.StatusBadRequest, err.Error())
-		}
+	if token == "" {
+		log.Println("token not found")
+	}
 
-		_, err := uh.userUsecase.Update(req.Name, token)
-		if err != nil {
-			return c.JSON(http.StatusBadRequest, err.Error())
-		}
+	var req request.UserUpdateRequest
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&req)
 
-		return c.JSON(http.StatusOK, nil)
+	if err != nil {
+		log.Println(err)
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+
+	_, err = uh.userUsecase.Update(req.Name, token)
+	if err != nil {
+		log.Println(err)
 	}
 }

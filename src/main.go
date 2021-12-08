@@ -2,15 +2,13 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
-	"time"
-
 	"techtrain-mission/src/presen/handler"
-	"techtrain-mission/src/presen/middleware"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-	"github.com/labstack/echo"
 )
 
 func main() {
@@ -19,14 +17,16 @@ func main() {
 
 	userHandler := initUserHandler(db)
 
-	e := echo.New()
-	e.Use(middleware.Logger)
-	handler.InitRouting(e, userHandler)
+	// e := echo.New()
+	// e.Use(middleware.Logger)
+	handler.InitRouting(userHandler)
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080"
+		port = ":8080"
 	}
-	e.Logger.Fatal(e.Start(":" + port))
+	if err := http.ListenAndServe(port, nil); err != nil {
+		panic(err)
+	}
 }
 
 func sqlConnect() (database *gorm.DB) {
