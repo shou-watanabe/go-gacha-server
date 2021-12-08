@@ -8,6 +8,8 @@ import (
 	"techtrain-mission/src/presen/request"
 	"techtrain-mission/src/presen/response"
 	"techtrain-mission/src/usecase"
+
+	"go.uber.org/zap"
 )
 
 type UserHandler interface {
@@ -35,12 +37,12 @@ func (uh *userHandler) Create(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&req)
 	if err != nil {
-		log.Println(err)
+		zap.Error(err)
 	}
 
 	createdUser, err := uh.userUsecase.Create(req.Name)
 	if err != nil {
-		log.Println(err)
+		zap.Error(err)
 	}
 
 	res := response.UserCreateResponse{
@@ -51,7 +53,7 @@ func (uh *userHandler) Create(w http.ResponseWriter, r *http.Request) {
 
 	je := json.NewEncoder(w)
 	if err := je.Encode(res); err != nil {
-		log.Println(err)
+		zap.Error(err)
 	}
 }
 
@@ -71,7 +73,7 @@ func (uh *userHandler) Get(w http.ResponseWriter, r *http.Request) {
 	targetUser, err := uh.userUsecase.Get(token)
 
 	if err != nil {
-		log.Println(err)
+		zap.Error(err)
 	}
 
 	res := response.UserGetResponse{
@@ -82,7 +84,7 @@ func (uh *userHandler) Get(w http.ResponseWriter, r *http.Request) {
 
 	je := json.NewEncoder(w)
 	if err := je.Encode(res); err != nil {
-		log.Println(err)
+		zap.Error(err)
 	}
 }
 
@@ -104,13 +106,13 @@ func (uh *userHandler) Update(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&req)
 
 	if err != nil {
-		log.Println(err)
+		zap.Error(err)
 	}
 
 	w.WriteHeader(http.StatusNoContent)
 
 	_, err = uh.userUsecase.Update(req.Name, token)
 	if err != nil {
-		log.Println(err)
+		zap.Error(err)
 	}
 }
