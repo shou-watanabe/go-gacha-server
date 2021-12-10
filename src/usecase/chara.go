@@ -18,7 +18,7 @@ func NewCharaUsecase(cr repository.CharaRepository) CharaUsecase {
 	return &charaUsecase
 }
 
-func (uu *charaUsecase) Get(id int) (chara *entity.Chara, err error) {
-	chara, err = uu.charaRepo.Get(id)
+func (cu *charaUsecase) Get(id int) (chara *entity.Chara, err error) {
+	chara, err = cu.charaRepo.Get(id)
 	return
 }
