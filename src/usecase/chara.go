@@ -6,19 +6,20 @@ import (
 )
 
 type CharaUsecase interface {
-	Get(id int) (*entity.Chara, error)
+	List(token string) ([]*entity.UserChara, error)
 }
 
 type charaUsecase struct {
-	charaRepo repository.CharaRepository
+	charaRepo     repository.CharaRepository
+	userCharaRepo repository.UserCharaRepository
 }
 
-func NewCharaUsecase(cr repository.CharaRepository) CharaUsecase {
-	charaUsecase := charaUsecase{charaRepo: cr}
+func NewCharaUsecase(cr repository.CharaRepository, ucr repository.UserCharaRepository) CharaUsecase {
+	charaUsecase := charaUsecase{charaRepo: cr, userCharaRepo: ucr}
 	return &charaUsecase
 }
 
-func (uu *charaUsecase) Get(id int) (chara *entity.Chara, err error) {
-	chara, err = uu.charaRepo.Get(id)
+func (cu *charaUsecase) List(token string) (userChara []*entity.UserChara, err error) {
+	userChara, err = cu.userCharaRepo.List(token)
 	return
 }

@@ -3,15 +3,18 @@ package main
 import (
 	"net/http"
 	"os"
+	"techtrain-mission/src/infra/sql"
 	"techtrain-mission/src/presen/handler"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
-	userHandler := initUserHandler()
+	db := sql.NewDB()
+	userHandler := initUserHandler(db)
+	charaHandler := initCharaHandler(db)
 
-	handler.InitRouting(userHandler)
+	handler.InitRouting(userHandler, charaHandler)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = ":8080"
