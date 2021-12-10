@@ -6,7 +6,7 @@ import (
 )
 
 type CharaUsecase interface {
-	List(id int) (*entity.Chara, error)
+	List(token string) (*entity.Chara, error)
 }
 
 type charaUsecase struct {
@@ -18,7 +18,7 @@ func NewCharaUsecase(cr repository.CharaRepository) CharaUsecase {
 	return &charaUsecase
 }
 
-func (cu *charaUsecase) List(id int) (chara *entity.Chara, err error) {
-	chara, err = cu.charaRepo.List(id)
+func (cu *charaUsecase) List(token string) (chara *entity.Chara, err error) {
+	chara, err = cu.charaRepo.List(token)
 	return
 }
