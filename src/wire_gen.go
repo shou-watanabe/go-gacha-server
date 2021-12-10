@@ -7,8 +7,8 @@
 package main
 
 import (
-	"github.com/jinzhu/gorm"
 	"techtrain-mission/src/infra/repository"
+	"techtrain-mission/src/infra/sql"
 	"techtrain-mission/src/presen/handler"
 	"techtrain-mission/src/usecase"
 )
@@ -19,7 +19,8 @@ import (
 
 // Injectors from wire.go:
 
-func initUserHandler(db *gorm.DB) handler.UserHandler {
+func initUserHandler() handler.UserHandler {
+	db := sql.NewDB()
 	userRepository := repository.NewUserRepository(db)
 	userUsecase := usecase.NewUserUsecase(userRepository)
 	userHandler := handler.NewUserHandler(userUsecase)
