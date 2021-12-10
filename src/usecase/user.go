@@ -6,9 +6,9 @@ import (
 )
 
 type UserUsecase interface {
-	Create(string) (*entity.User, error)
-	Get(string) (*entity.User, error)
-	Update(string, string) (*entity.User, error)
+	Create(name string) (*entity.User, error)
+	Get(token string) (*entity.User, error)
+	Update(name string, token string) (*entity.User, error)
 }
 
 type userUsecase struct {
