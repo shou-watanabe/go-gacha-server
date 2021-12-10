@@ -11,5 +11,5 @@ root
 use go_database;
 
 ## キャラクター情報取得のSQL(id, name, rarity, probability)
-select charactors.id, charactors.name, rarities.rarity, rarities.probability from charactors, rarities where charactors.rarity_id = rarities.i
+select characters.id, characters.name, rarities.rarity, rarities.probability from characters, rarities where characters.rarity_id = rarities.i
 d;
