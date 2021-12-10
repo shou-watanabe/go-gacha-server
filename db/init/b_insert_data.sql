@@ -12,7 +12,7 @@ VALUES
     ("N", 40);
 
 INSERT INTO
-    charactors (name, rarity_id)
+    characters (name, rarity_id)
 VALUES
     ("Ken", 1),
     ("Tom", 2),
