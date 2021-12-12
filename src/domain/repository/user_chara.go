@@ -3,5 +3,5 @@ package repository
 import "techtrain-mission/src/domain/entity"
 
 type UserCharaRepository interface {
-	List(token string) ([]*entity.UserChara, error)
+	List(ue entity.User) ([]*entity.UserChara, error)
 }
