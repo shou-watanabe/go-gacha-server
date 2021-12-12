@@ -10,16 +10,24 @@ type CharaUsecase interface {
 }
 
 type charaUsecase struct {
-	charaRepo     repository.CharaRepository
+	userRepo      repository.UserRepository
 	userCharaRepo repository.UserCharaRepository
 }
 
-func NewCharaUsecase(cr repository.CharaRepository, ucr repository.UserCharaRepository) CharaUsecase {
-	charaUsecase := charaUsecase{charaRepo: cr, userCharaRepo: ucr}
+func NewCharaUsecase(ur repository.UserRepository, ucr repository.UserCharaRepository) CharaUsecase {
+	charaUsecase := charaUsecase{userRepo: ur, userCharaRepo: ucr}
 	return &charaUsecase
 }
 
-func (cu *charaUsecase) List(token string) (userChara []*entity.UserChara, err error) {
-	userChara, err = cu.userCharaRepo.List(token)
-	return
+func (cu *charaUsecase) List(token string) ([]*entity.UserChara, error) {
+	user, err := cu.userRepo.Get(token)
+	if err != nil {
+		return nil, err
+	}
+
+	userChara, err := cu.userCharaRepo.List(*user)
+	if err != nil {
+		return nil, err
+	}
+	return userChara, nil
 }
