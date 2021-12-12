@@ -1,19 +1,11 @@
 package sql
 
 import (
-	"fmt"
-	"time"
-
-	"github.com/jinzhu/gorm"
+	"database/sql"
+	"log"
 )
 
-func NewDB() *gorm.DB {
-	db := SqlConnect()
-	defer db.Close()
-	return db
-}
-
-func SqlConnect() (database *gorm.DB) {
+func NewDriver() *sql.DB {
 	DBMS := "mysql"
 	USER := "go_test"
 	PASS := "password"
@@ -22,26 +14,13 @@ func SqlConnect() (database *gorm.DB) {
 
 	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?charset=utf8&parseTime=true&loc=Asia%2FTokyo"
 
-	count := 0
-	db, err := gorm.Open(DBMS, CONNECT)
+	db, err := sql.Open(DBMS, CONNECT)
 	if err != nil {
-		for {
-			if err == nil {
-				fmt.Println("")
-				break
-			}
-			fmt.Print(".")
-			time.Sleep(time.Second)
-			count++
-			if count > 180 {
-				fmt.Println("")
-				fmt.Println("DB connect failed")
-				panic(err)
-			}
-			db, err = gorm.Open(DBMS, CONNECT)
-		}
+		log.Println("DB connect failed")
+		panic(err)
 	}
-	fmt.Println("DB connect success")
+
+	log.Println("DB connect success")
 
 	return db
 }
