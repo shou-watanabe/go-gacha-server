@@ -24,7 +24,7 @@ func initUserHandler(db *gorm.DB) handler.UserHandler {
 func initCharaHandler(db *gorm.DB) handler.CharaHandler {
 	wire.Build(
 		repository.NewUserCharaRepository,
-		repository.NewCharaRepository,
+		repository.NewUserRepository,
 		usecase.NewCharaUsecase,
 		handler.NewCharaHandler,
 	)

@@ -27,9 +27,9 @@ func initUserHandler(db *gorm.DB) handler.UserHandler {
 }
 
 func initCharaHandler(db *gorm.DB) handler.CharaHandler {
-	charaRepository := repository.NewCharaRepository(db)
+	userRepository := repository.NewUserRepository(db)
 	userCharaRepository := repository.NewUserCharaRepository(db)
-	charaUsecase := usecase.NewCharaUsecase(charaRepository, userCharaRepository)
+	charaUsecase := usecase.NewCharaUsecase(userRepository, userCharaRepository)
 	charaHandler := handler.NewCharaHandler(charaUsecase)
 	return charaHandler
 }
