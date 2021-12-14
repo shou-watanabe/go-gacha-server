@@ -50,6 +50,13 @@ func (ur *userRepository) Create(ctx context.Context, name string) (*entity.User
 		return nil, err
 	}
 
+	// gormバージョン
+	// ur.Conn.Table("users").Exec("insert users (name, token) value (?, UUID())", name).Scan(&ue)
+	// if ue.Name == "" {
+	// 	err := errors.New("use not found")
+	// 	return ue, err
+	// }
+
 	return ue, nil
 }
 
@@ -74,11 +81,17 @@ func (ur *userRepository) Get(ctx context.Context, token string) (*entity.User, 
 		return nil, err
 	}
 
+	// gormバージョン
+	// if err := ur.Conn.Table("users").First(&user, "token = ?", token).Error; err != nil {
+	// 	return nil, err
+	// }
+
 	return ue, nil
 }
 
 func (ur *userRepository) Update(ctx context.Context, name string, token string) (*entity.User, error) {
 	user := &entity.User{Token: token}
+	// gormバージョン
 	// if err := ur.Conn.Table("users").Update("name", name).Error; err != nil {
 	// 	return nil, err
 	// }
