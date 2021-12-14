@@ -41,7 +41,7 @@ func (uh *userHandler) Create(w http.ResponseWriter, r *http.Request) {
 		zap.Error(err)
 	}
 
-	createdUser, err := uh.userUsecase.Create(req.Name)
+	createdUser, err := uh.userUsecase.Create(r.Context(), req.Name)
 	if err != nil {
 		zap.Error(err)
 	}
@@ -71,7 +71,7 @@ func (uh *userHandler) Get(w http.ResponseWriter, r *http.Request) {
 		log.Println("token not found")
 	}
 
-	targetUser, err := uh.userUsecase.Get(token)
+	targetUser, err := uh.userUsecase.Get(r.Context(), token)
 
 	if err != nil {
 		zap.Error(err)
@@ -112,7 +112,7 @@ func (uh *userHandler) Update(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusNoContent)
 
-	_, err = uh.userUsecase.Update(req.Name, token)
+	_, err = uh.userUsecase.Update(r.Context(), req.Name, token)
 	if err != nil {
 		zap.Error(err)
 	}
