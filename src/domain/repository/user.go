@@ -1,9 +1,13 @@
 package repository
 
-import "techtrain-mission/src/domain/entity"
+import (
+	"context"
+
+	"techtrain-mission/src/domain/entity"
+)
 
 type UserRepository interface {
-	Create(name string) (*entity.User, error)
-	Get(token string) (*entity.User, error)
-	Update(name string, token string) (*entity.User, error)
+	Create(ctx context.Context, name string) (*entity.User, error)
+	Get(ctx context.Context, token string) (*entity.User, error)
+	Update(ctx context.Context, name string, token string) (*entity.User, error)
 }

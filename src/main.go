@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	db := sql.NewDB()
+	db := sql.NewDriver()
 	userHandler := initUserHandler(db)
 	charaHandler := initCharaHandler(db)
 

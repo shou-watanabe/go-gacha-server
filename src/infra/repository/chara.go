@@ -1,17 +1,16 @@
 package repository
 
 import (
+	"database/sql"
 	"techtrain-mission/src/domain/repository"
-
-	"github.com/jinzhu/gorm"
 )
 
 type charaRepository struct {
-	Conn *gorm.DB
+	db *sql.DB
 }
 
-func NewCharaRepository(conn *gorm.DB) repository.CharaRepository {
-	return &charaRepository{Conn: conn}
+func NewCharaRepository(db *sql.DB) repository.CharaRepository {
+	return &charaRepository{db: db}
 }
 
 // func (cr *charaRepository) List(token string) ([]*entity.Chara, error) {

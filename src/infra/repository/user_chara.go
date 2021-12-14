@@ -1,18 +1,17 @@
 package repository
 
 import (
+	"database/sql"
 	"techtrain-mission/src/domain/entity"
 	"techtrain-mission/src/domain/repository"
-
-	"github.com/jinzhu/gorm"
 )
 
 type userCharaRepository struct {
-	Conn *gorm.DB
+	db *sql.DB
 }
 
-func NewUserCharaRepository(conn *gorm.DB) repository.UserCharaRepository {
-	return &userCharaRepository{Conn: conn}
+func NewUserCharaRepository(db *sql.DB) repository.UserCharaRepository {
+	return &userCharaRepository{db: db}
 }
 
 func (ucr *userCharaRepository) List(ue entity.User) ([]*entity.UserChara, error) {

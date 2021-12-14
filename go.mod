@@ -10,11 +10,6 @@ require (
 )
 
 require (
-	github.com/jinzhu/gorm v1.9.16
-	github.com/jinzhu/inflection v1.0.0 // indirect
-)
-
-require (
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
 )

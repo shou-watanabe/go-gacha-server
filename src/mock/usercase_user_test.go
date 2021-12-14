@@ -1,6 +1,7 @@
 package mock_repository
 
 import (
+	context "context"
 	reflect "reflect"
 	"techtrain-mission/src/domain/entity"
 	"techtrain-mission/src/usecase"
@@ -22,12 +23,13 @@ func TestCreate(t *testing.T) {
 	var expected *entity.User
 	var err error
 	name := "test"
+	ctx := context.Background()
 
 	ur := NewMockUserRepository(ctrl)
-	ur.EXPECT().Create(name).Return(expected, err)
+	ur.EXPECT().Create(ctx, name).Return(expected, err)
 
 	uu := usecase.NewUserUsecase(ur)
-	result, err := uu.Create(name)
+	result, err := uu.Create(ctx, name)
 
 	if err != nil {
 		t.Error("Actual Create(name string) is not same as expected")
@@ -45,12 +47,13 @@ func TestGet(t *testing.T) {
 	var expected *entity.User
 	var err error
 	token := "test"
+	ctx := context.Background()
 
 	ur := NewMockUserRepository(ctrl)
-	ur.EXPECT().Get(token).Return(expected, err)
+	ur.EXPECT().Get(ctx, token).Return(expected, err)
 
 	uu := usecase.NewUserUsecase(ur)
-	result, err := uu.Get(token)
+	result, err := uu.Get(ctx, token)
 
 	if err != nil {
 		t.Error("Actual Get(token string) is not same as expected")
@@ -69,12 +72,13 @@ func TestUpdate(t *testing.T) {
 	var err error
 	name := "test"
 	token := "test"
+	ctx := context.Background()
 
 	ur := NewMockUserRepository(ctrl)
-	ur.EXPECT().Update(name, token).Return(expected, err)
+	ur.EXPECT().Update(ctx, name, token).Return(expected, err)
 
 	uu := usecase.NewUserUsecase(ur)
-	result, err := uu.Update(name, token)
+	result, err := uu.Update(ctx, name, token)
 
 	if err != nil {
 		t.Error("Actual Update(name string, token string) is not same as expected")
