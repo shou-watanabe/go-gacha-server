@@ -17,17 +17,33 @@ func NewUserCharaRepository(db *sql.DB) repository.UserCharaRepository {
 }
 
 func (ucr *userCharaRepository) List(ctx context.Context, ue entity.User) ([]*entity.UserChara, error) {
-	// rows, err := ucr.Conn.Table("users").Select("users.name, emails.email").Joins("left join emails on emails.user_id = users.id").Rows()
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// for rows.Next() {
-	// 	//...
-	// }
-	// 可能なら条件に合うcharaIdを取得するたびにCharaを参照する
-	// User.Idからuser_character_possessionsテーブルにアクセスして、userが保持しているcharaIdを取得する
-	// charaIdからcharactersテーブルにアクセスしてキャラ情報をとる
-	// uce := &entity.UserChara{}
-	// ur.Conn.Table("")
-	return nil, nil
+	const list = `SELECT user_character_possessions.id, characters.id, characters.name, rarities.rarity, rarities.probability FROM user_character_possessions INNER JOIN characters ON user_character_possessions.character_id = characters.id INNER JOIN rarities ON characters.rarity_id = rarities.id WHERE user_character_possessions.user_id = ?`
+
+	stmt, err := ucr.db.PrepareContext(ctx, list)
+	if err != nil {
+		return nil, err
+	}
+
+	defer stmt.Close()
+
+	rows, err := stmt.QueryContext(ctx, ue.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	var entities []*entity.UserChara
+	for rows.Next() {
+		uce := &entity.UserChara{User: ue}
+		ce := &entity.Chara{}
+
+		err := rows.Scan(&uce.Id, &ce.Id, &ce.Name, &ce.Rarity, &ce.Probability)
+		if err != nil {
+			return nil, err
+		}
+
+		uce.Chara = *ce
+		entities = append(entities, uce)
+	}
+
+	return entities, nil
 }
