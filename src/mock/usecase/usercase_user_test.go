@@ -1,13 +1,15 @@
-package mock_repository
+package mock_usecase
 
 import (
 	context "context"
 	reflect "reflect"
-	"techtrain-mission/src/domain/entity"
-	"techtrain-mission/src/usecase"
 	"testing"
 
 	"github.com/golang/mock/gomock"
+
+	"techtrain-mission/src/domain/entity"
+	mock_repository "techtrain-mission/src/mock/repository"
+	"techtrain-mission/src/usecase"
 )
 
 // type UserUsecase interface {
@@ -25,7 +27,7 @@ func TestCreate(t *testing.T) {
 	name := "test"
 	ctx := context.Background()
 
-	ur := NewMockUserRepository(ctrl)
+	ur := mock_repository.NewMockUserRepository(ctrl)
 	ur.EXPECT().Create(ctx, name).Return(expected, err)
 
 	uu := usecase.NewUserUsecase(ur)
@@ -49,7 +51,7 @@ func TestGet(t *testing.T) {
 	token := "test"
 	ctx := context.Background()
 
-	ur := NewMockUserRepository(ctrl)
+	ur := mock_repository.NewMockUserRepository(ctrl)
 	ur.EXPECT().Get(ctx, token).Return(expected, err)
 
 	uu := usecase.NewUserUsecase(ur)
@@ -74,7 +76,7 @@ func TestUpdate(t *testing.T) {
 	token := "test"
 	ctx := context.Background()
 
-	ur := NewMockUserRepository(ctrl)
+	ur := mock_repository.NewMockUserRepository(ctrl)
 	ur.EXPECT().Update(ctx, name, token).Return(expected, err)
 
 	uu := usecase.NewUserUsecase(ur)
