@@ -1,10 +1,10 @@
 package response
 
 type GachaDrawResponse struct {
-	Results []GachaResult
+	Results []GachaResult `json:"results"`
 }
 
 type GachaResult struct {
-	CharacterID string
-	Name        string
+	CharacterID string `json:"character_id"`
+	Name        string `json:"name"`
 }

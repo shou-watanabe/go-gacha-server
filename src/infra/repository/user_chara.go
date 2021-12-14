@@ -47,3 +47,22 @@ func (ucr *userCharaRepository) List(ctx context.Context, ue entity.User) ([]*en
 
 	return entities, nil
 }
+
+func (ucr *userCharaRepository) Store(ctx context.Context, ue entity.User, ces []*entity.Chara) error {
+	const store = `INSERT user_character_possessions (user_id, character_id) VALUE (?, ?)`
+
+	stmt, err := ucr.db.PrepareContext(ctx, store)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	for _, ce := range ces {
+		_, err := stmt.ExecContext(ctx, ue.Id, ce.Id)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}

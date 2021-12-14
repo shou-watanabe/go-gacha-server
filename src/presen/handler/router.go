@@ -5,7 +5,7 @@ import (
 	"techtrain-mission/src/presen/middleware"
 )
 
-func InitRouting(userHandler UserHandler, charaHandler CharaHandler) {
+func InitRouting(userHandler UserHandler, charaHandler CharaHandler, gachaHandler GachaHandler) {
 	userCreate := http.HandlerFunc(userHandler.Create)
 	http.Handle("/user/create", middleware.Logger(userCreate))
 
@@ -17,4 +17,7 @@ func InitRouting(userHandler UserHandler, charaHandler CharaHandler) {
 
 	characterList := http.HandlerFunc(charaHandler.List)
 	http.Handle("/character/list", middleware.Logger(characterList))
+
+	gachaDraw := http.HandlerFunc(gachaHandler.Draw)
+	http.Handle("/gacha/draw", middleware.Logger(gachaDraw))
 }

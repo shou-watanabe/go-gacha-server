@@ -13,8 +13,9 @@ func main() {
 	db := sql.NewDriver()
 	userHandler := initUserHandler(db)
 	charaHandler := initCharaHandler(db)
+	gachaHandler := initGachaHandler(db)
 
-	handler.InitRouting(userHandler, charaHandler)
+	handler.InitRouting(userHandler, charaHandler, gachaHandler)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = ":8080"

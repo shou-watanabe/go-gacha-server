@@ -31,3 +31,14 @@ func initCharaHandler(driver *sql.DB) handler.CharaHandler {
 	)
 	return nil
 }
+
+func initGachaHandler(driver *sql.DB) handler.GachaHandler {
+	wire.Build(
+		repository.NewUserRepository,
+		repository.NewCharaRepository,
+		repository.NewUserCharaRepository,
+		usecase.NewGachaUsecase,
+		handler.NewGachaHandler,
+	)
+	return nil
+}

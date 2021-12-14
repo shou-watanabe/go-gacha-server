@@ -1,5 +1,5 @@
 package request
 
 type GachaDrawRequest struct {
-	Times int
+	Times int `json:"times"`
 }
