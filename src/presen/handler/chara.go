@@ -38,7 +38,7 @@ func (ch *charaHandler) List(w http.ResponseWriter, r *http.Request) {
 		log.Println("token not found")
 	}
 
-	ucEntities, err := ch.charaUsecase.List(token)
+	ucEntities, err := ch.charaUsecase.List(r.Context(), token)
 
 	if err != nil {
 		zap.Error(err)

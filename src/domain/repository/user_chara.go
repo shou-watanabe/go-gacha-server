@@ -1,7 +1,11 @@
 package repository
 
-import "techtrain-mission/src/domain/entity"
+import (
+	"context"
+
+	"techtrain-mission/src/domain/entity"
+)
 
 type UserCharaRepository interface {
-	List(ue entity.User) ([]*entity.UserChara, error)
+	List(ctx context.Context, ue entity.User) ([]*entity.UserChara, error)
 }

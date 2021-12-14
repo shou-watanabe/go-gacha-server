@@ -1,7 +1,9 @@
 package repository
 
 import (
+	"context"
 	"database/sql"
+
 	"techtrain-mission/src/domain/entity"
 	"techtrain-mission/src/domain/repository"
 )
@@ -14,7 +16,7 @@ func NewUserCharaRepository(db *sql.DB) repository.UserCharaRepository {
 	return &userCharaRepository{db: db}
 }
 
-func (ucr *userCharaRepository) List(ue entity.User) ([]*entity.UserChara, error) {
+func (ucr *userCharaRepository) List(ctx context.Context, ue entity.User) ([]*entity.UserChara, error) {
 	// rows, err := ucr.Conn.Table("users").Select("users.name, emails.email").Joins("left join emails on emails.user_id = users.id").Rows()
 	// if err != nil {
 	// 	return nil, err

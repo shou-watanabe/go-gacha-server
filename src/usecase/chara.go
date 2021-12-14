@@ -1,12 +1,13 @@
 package usecase
 
 import (
+	"context"
 	"techtrain-mission/src/domain/entity"
 	"techtrain-mission/src/domain/repository"
 )
 
 type CharaUsecase interface {
-	List(token string) ([]*entity.UserChara, error)
+	List(ctx context.Context, token string) ([]*entity.UserChara, error)
 }
 
 type charaUsecase struct {
@@ -19,13 +20,13 @@ func NewCharaUsecase(ur repository.UserRepository, ucr repository.UserCharaRepos
 	return &charaUsecase
 }
 
-func (cu *charaUsecase) List(token string) ([]*entity.UserChara, error) {
-	user, err := cu.userRepo.Get(token)
+func (cu *charaUsecase) List(ctx context.Context, token string) ([]*entity.UserChara, error) {
+	user, err := cu.userRepo.Get(ctx, token)
 	if err != nil {
 		return nil, err
 	}
 
-	userChara, err := cu.userCharaRepo.List(*user)
+	userChara, err := cu.userCharaRepo.List(ctx, *user)
 	if err != nil {
 		return nil, err
 	}
