@@ -4,15 +4,16 @@
 package main
 
 import (
+	"database/sql"
+
 	"github.com/google/wire"
-	"github.com/jinzhu/gorm"
 
 	"techtrain-mission/src/infra/repository"
 	"techtrain-mission/src/presen/handler"
 	"techtrain-mission/src/usecase"
 )
 
-func initUserHandler(db *gorm.DB) handler.UserHandler {
+func initUserHandler(driver *sql.DB) handler.UserHandler {
 	wire.Build(
 		repository.NewUserRepository,
 		usecase.NewUserUsecase,
@@ -21,7 +22,7 @@ func initUserHandler(db *gorm.DB) handler.UserHandler {
 	return nil
 }
 
-func initCharaHandler(db *gorm.DB) handler.CharaHandler {
+func initCharaHandler(driver *sql.DB) handler.CharaHandler {
 	wire.Build(
 		repository.NewUserCharaRepository,
 		repository.NewCharaRepository,
