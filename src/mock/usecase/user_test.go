@@ -18,7 +18,7 @@ import (
 // 	Update(string, string) (*entity.User, error)
 // }
 
-func TestCreate(t *testing.T) {
+func TestUserCreate(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -42,7 +42,7 @@ func TestCreate(t *testing.T) {
 	}
 }
 
-func TestGet(t *testing.T) {
+func TestUserGet(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -66,7 +66,7 @@ func TestGet(t *testing.T) {
 	}
 }
 
-func TestUpdate(t *testing.T) {
+func TestUserUpdate(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
