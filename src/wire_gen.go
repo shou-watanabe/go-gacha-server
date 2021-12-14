@@ -27,9 +27,9 @@ func initUserHandler(driver *sql.DB) handler.UserHandler {
 }
 
 func initCharaHandler(driver *sql.DB) handler.CharaHandler {
-	charaRepository := repository.NewCharaRepository(driver)
+	userRepository := repository.NewUserRepository(driver)
 	userCharaRepository := repository.NewUserCharaRepository(driver)
-	charaUsecase := usecase.NewCharaUsecase(charaRepository, userCharaRepository)
+	charaUsecase := usecase.NewCharaUsecase(userRepository, userCharaRepository)
 	charaHandler := handler.NewCharaHandler(charaUsecase)
 	return charaHandler
 }

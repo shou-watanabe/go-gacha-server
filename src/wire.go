@@ -25,7 +25,7 @@ func initUserHandler(driver *sql.DB) handler.UserHandler {
 func initCharaHandler(driver *sql.DB) handler.CharaHandler {
 	wire.Build(
 		repository.NewUserCharaRepository,
-		repository.NewCharaRepository,
+		repository.NewUserRepository,
 		usecase.NewCharaUsecase,
 		handler.NewCharaHandler,
 	)

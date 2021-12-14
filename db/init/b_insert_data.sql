@@ -24,3 +24,10 @@ VALUES
     ("Boby", 4),
     ("Kenny", 4),
     ("Ren", 4);
+
+INSERT INTO
+    user_character_possessions (user_id, character_id)
+VALUES
+    (1, 1),
+    (1, 2),
+    (1, 3);
