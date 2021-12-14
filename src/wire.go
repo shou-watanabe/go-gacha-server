@@ -4,16 +4,15 @@
 package main
 
 import (
-	"database/sql"
-
 	"github.com/google/wire"
 
 	"techtrain-mission/src/infra/repository"
+	"techtrain-mission/src/infra/sql"
 	"techtrain-mission/src/presen/handler"
 	"techtrain-mission/src/usecase"
 )
 
-func initUserHandler(driver *sql.DB) handler.UserHandler {
+func initUserHandler(driver *sql.SqlDriver) handler.UserHandler {
 	wire.Build(
 		repository.NewUserRepository,
 		usecase.NewUserUsecase,
@@ -22,7 +21,7 @@ func initUserHandler(driver *sql.DB) handler.UserHandler {
 	return nil
 }
 
-func initCharaHandler(driver *sql.DB) handler.CharaHandler {
+func initCharaHandler(driver *sql.SqlDriver) handler.CharaHandler {
 	wire.Build(
 		repository.NewUserCharaRepository,
 		repository.NewUserRepository,

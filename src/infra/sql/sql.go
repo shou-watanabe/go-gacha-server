@@ -1,11 +1,16 @@
 package sql
 
 import (
+	"context"
 	"database/sql"
 	"log"
 )
 
-func NewDriver() *sql.DB {
+type SqlDriver struct {
+	Db *sql.DB
+}
+
+func NewDriver() *SqlDriver {
 	DBMS := "mysql"
 	USER := "go_test"
 	PASS := "password"
@@ -22,5 +27,17 @@ func NewDriver() *sql.DB {
 
 	log.Println("DB connect success")
 
-	return db
+	return &SqlDriver{Db: db}
+}
+
+func QueryRowContext(ctx context.Context, args ...interface{}) *sql.Row {
+	return nil
+}
+
+func QueryContext(ctx context.Context, args ...interface{}) (*sql.Rows, error) {
+	return nil, nil
+}
+
+func ExecContext(ctx context.Context, args ...interface{}) (sql.Result, error) {
+	return nil, nil
 }

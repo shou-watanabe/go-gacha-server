@@ -7,8 +7,8 @@
 package main
 
 import (
-	"database/sql"
 	"techtrain-mission/src/infra/repository"
+	"techtrain-mission/src/infra/sql"
 	"techtrain-mission/src/presen/handler"
 	"techtrain-mission/src/usecase"
 )
@@ -19,14 +19,14 @@ import (
 
 // Injectors from wire.go:
 
-func initUserHandler(driver *sql.DB) handler.UserHandler {
+func initUserHandler(driver *sql.SqlDriver) handler.UserHandler {
 	userRepository := repository.NewUserRepository(driver)
 	userUsecase := usecase.NewUserUsecase(userRepository)
 	userHandler := handler.NewUserHandler(userUsecase)
 	return userHandler
 }
 
-func initCharaHandler(driver *sql.DB) handler.CharaHandler {
+func initCharaHandler(driver *sql.SqlDriver) handler.CharaHandler {
 	userRepository := repository.NewUserRepository(driver)
 	userCharaRepository := repository.NewUserCharaRepository(driver)
 	charaUsecase := usecase.NewCharaUsecase(userRepository, userCharaRepository)
