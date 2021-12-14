@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 	"strconv"
 
@@ -33,9 +32,8 @@ func (ch *charaHandler) List(w http.ResponseWriter, r *http.Request) {
 	}
 
 	token := r.Header.Get("X-Token")
-
 	if token == "" {
-		log.Println("token not found")
+		zap.Error(myError.ErrTokenNotFound)
 	}
 
 	ucEntities, err := ch.charaUsecase.List(r.Context(), token)

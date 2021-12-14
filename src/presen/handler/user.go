@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 
 	myError "techtrain-mission/src/core/error"
@@ -66,9 +65,8 @@ func (uh *userHandler) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	token := r.Header.Get("X-Token")
-
 	if token == "" {
-		log.Println("token not found")
+		zap.Error(myError.ErrTokenNotFound)
 	}
 
 	targetUser, err := uh.userUsecase.Get(r.Context(), token)
