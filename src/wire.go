@@ -34,7 +34,9 @@ func initCharaHandler(driver *sql.DB) handler.CharaHandler {
 
 func initGachaHandler(driver *sql.DB) handler.GachaHandler {
 	wire.Build(
+		repository.NewUserRepository,
 		repository.NewCharaRepository,
+		repository.NewUserCharaRepository,
 		usecase.NewGachaUsecase,
 		handler.NewGachaHandler,
 	)
