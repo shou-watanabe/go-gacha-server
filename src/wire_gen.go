@@ -33,3 +33,10 @@ func initCharaHandler(driver *sql.DB) handler.CharaHandler {
 	charaHandler := handler.NewCharaHandler(charaUsecase)
 	return charaHandler
 }
+
+func initGachaHandler(driver *sql.DB) handler.GachaHandler {
+	charaRepository := repository.NewCharaRepository(driver)
+	gachaUsecase := usecase.NewGachaUsecase(charaRepository)
+	gachaHandler := handler.NewGachaHandler(gachaUsecase)
+	return gachaHandler
+}
