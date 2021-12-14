@@ -8,7 +8,7 @@ import (
 
 func Logger(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
-		logger.HttpLogging("success", r)
+		logger.HttpLogging("incoming request", r)
 
 		next.ServeHTTP(rw, r)
 	})
