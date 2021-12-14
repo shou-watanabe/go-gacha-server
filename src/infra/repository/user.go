@@ -54,12 +54,27 @@ func (ur *userRepository) Create(ctx context.Context, name string) (*entity.User
 }
 
 func (ur *userRepository) Get(ctx context.Context, token string) (*entity.User, error) {
-	user := &entity.User{}
-	// if err := ur.Conn.Table("users").First(&user, "token = ?", token).Error; err != nil {
-	// 	return nil, err
-	// }
+	const read = `SELECT * FROM users WHERE token = ?`
 
-	return user, nil
+	stmt, err := ur.db.PrepareContext(ctx, read)
+	if err != nil {
+		return nil, err
+	}
+
+	defer stmt.Close()
+
+	row := stmt.QueryRowContext(ctx, token)
+	if err = row.Err(); err != nil {
+		return nil, err
+	}
+
+	ue := &entity.User{}
+	err = row.Scan(&ue.Id, &ue.Name, &ue.Token)
+	if err != nil {
+		return nil, err
+	}
+
+	return ue, nil
 }
 
 func (ur *userRepository) Update(ctx context.Context, name string, token string) (*entity.User, error) {
