@@ -32,6 +32,11 @@ func (gh *gachaHandler) Draw(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	token := r.Header.Get("X-Token")
+	if token == "" {
+		zap.Error(myError.ErrTokenNotFound)
+	}
+
 	var req request.GachaDrawRequest
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&req)
@@ -39,7 +44,7 @@ func (gh *gachaHandler) Draw(w http.ResponseWriter, r *http.Request) {
 		zap.Error(err)
 	}
 
-	characters, err := gh.gachaUsecase.Draw(r.Context(), req.Times)
+	characters, err := gh.gachaUsecase.Draw(r.Context(), req.Times, token)
 	if err != nil {
 		zap.Error(err)
 	}
