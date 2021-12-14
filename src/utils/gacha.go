@@ -1,6 +1,8 @@
 package utils
 
-import "math/rand"
+import (
+	"math/rand"
+)
 
 func WeightPick(array []int) int {
 	totalWeight := 0
@@ -11,7 +13,7 @@ func WeightPick(array []int) int {
 		totalWeight += array[i]
 	}
 
-	rnd := rand.Intn(30)
+	rnd := rand.Intn(totalWeight)
 
 	for i := 0; i < len(array); i++ {
 		if rnd < array[i] {
