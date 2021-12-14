@@ -19,14 +19,14 @@ import (
 
 // Injectors from wire.go:
 
-func initUserHandler(driver *sql.SqlDriver) handler.UserHandler {
+func initUserHandler(driver sql.DriverImpl) handler.UserHandler {
 	userRepository := repository.NewUserRepository(driver)
 	userUsecase := usecase.NewUserUsecase(userRepository)
 	userHandler := handler.NewUserHandler(userUsecase)
 	return userHandler
 }
 
-func initCharaHandler(driver *sql.SqlDriver) handler.CharaHandler {
+func initCharaHandler(driver sql.DriverImpl) handler.CharaHandler {
 	userRepository := repository.NewUserRepository(driver)
 	userCharaRepository := repository.NewUserCharaRepository(driver)
 	charaUsecase := usecase.NewCharaUsecase(userRepository, userCharaRepository)

@@ -12,7 +12,7 @@ import (
 	"techtrain-mission/src/usecase"
 )
 
-func initUserHandler(driver *sql.SqlDriver) handler.UserHandler {
+func initUserHandler(driver sql.DriverImpl) handler.UserHandler {
 	wire.Build(
 		repository.NewUserRepository,
 		usecase.NewUserUsecase,
@@ -21,7 +21,7 @@ func initUserHandler(driver *sql.SqlDriver) handler.UserHandler {
 	return nil
 }
 
-func initCharaHandler(driver *sql.SqlDriver) handler.CharaHandler {
+func initCharaHandler(driver sql.DriverImpl) handler.CharaHandler {
 	wire.Build(
 		repository.NewUserCharaRepository,
 		repository.NewUserRepository,

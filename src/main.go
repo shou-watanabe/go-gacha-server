@@ -11,8 +11,8 @@ import (
 
 func main() {
 	db := sql.NewDriver()
-	userHandler := initUserHandler(db)
-	charaHandler := initCharaHandler(db)
+	userHandler := initUserHandler(*db)
+	charaHandler := initCharaHandler(*db)
 
 	handler.InitRouting(userHandler, charaHandler)
 	port := os.Getenv("PORT")
