@@ -45,7 +45,7 @@ func (gu *gachaUsecase) Draw(ctx context.Context, times int, token string) ([]*e
 	}
 
 	if err := gu.userCharaRepo.Store(ctx, *ue, gotCharas); err != nil {
-
+		return nil, err
 	}
 
 	return gotCharas, nil
