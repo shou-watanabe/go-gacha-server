@@ -6,20 +6,22 @@ import (
 
 func Layers(handler http.Handler) http.Handler {
 	return Recovery(
-		Logger(
-			handler,
+		Context(
+			Logger(
+				handler,
+			),
 		),
 	)
 }
 
-// func AuthLayers(handler http.Handler) http.Handler {
-// 	return Recovery(
-// 		Context(
-// 			Access(
-// 				Basic(
-// 					handler,
-// 				),
-// 			),
-// 		),
-// 	)
-// }
+func AuthLayers(handler http.Handler) http.Handler {
+	return Recovery(
+		Context(
+			Logger(
+				Basic(
+					handler,
+				),
+			),
+		),
+	)
+}
