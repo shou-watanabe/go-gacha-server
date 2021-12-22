@@ -56,6 +56,7 @@ func (ch *charaHandler) List(w http.ResponseWriter, r *http.Request) {
 		Characters: characters,
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
 	je := json.NewEncoder(w)

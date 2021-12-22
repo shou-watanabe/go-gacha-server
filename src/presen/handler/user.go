@@ -49,6 +49,7 @@ func (uh *userHandler) Create(w http.ResponseWriter, r *http.Request) {
 		Token: createdUser.Token,
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 
 	je := json.NewEncoder(w)
@@ -79,6 +80,7 @@ func (uh *userHandler) Get(w http.ResponseWriter, r *http.Request) {
 		Name: targetUser.Name,
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
 	je := json.NewEncoder(w)
@@ -108,6 +110,7 @@ func (uh *userHandler) Update(w http.ResponseWriter, r *http.Request) {
 		zap.Error(err)
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusNoContent)
 
 	_, err = uh.userUsecase.Update(r.Context(), req.Name, token)

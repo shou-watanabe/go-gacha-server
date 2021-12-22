@@ -62,6 +62,7 @@ func (gh *gachaHandler) Draw(w http.ResponseWriter, r *http.Request) {
 		Results: results,
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
 	je := json.NewEncoder(w)
