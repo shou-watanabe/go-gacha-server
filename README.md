@@ -1,4 +1,8 @@
 # TechTrain MISSION
+㊗️クリア！
+
+<img width="975" alt="スクリーンショット 2021-12-23 20 04 02" src="https://user-images.githubusercontent.com/76590212/147231605-7e5c2571-4455-4242-b35a-437eb6236f66.png">
+
 ## 学べること
 - APIサーバの開発の仕方
 - リレーショナルデータベース(MySQL)の基礎的な使い方
