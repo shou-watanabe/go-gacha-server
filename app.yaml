@@ -1,0 +1,6 @@
+main: ./src
+
+runtime: go116
+
+includes:
+  - secrets.yaml

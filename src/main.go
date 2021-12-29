@@ -23,10 +23,10 @@ func main() {
 	handler.InitRouting(userHandler, charaHandler, gachaHandler)
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = ":8080"
+		port = "8080"
 	}
 	srv := &http.Server{
-		Addr: port,
+		Addr: ":" + port,
 	}
 	go func() {
 		if err := srv.ListenAndServe(); err != http.ErrServerClosed {

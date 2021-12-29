@@ -8,6 +8,11 @@ services:
     environment:
       BASIC_AUTH_USER_ID: 1
       BASIC_AUTH_PASSWORD: "pass"
+      DB_USER: go_test
+      DB_PASS: password
+      DB_INSTANCE_CONNECTION_NAME: db:3306
+      DB_NAME: go_database
+      ENVIRONMENT: dev
     stdin_open: true
     tty: true
     volumes:

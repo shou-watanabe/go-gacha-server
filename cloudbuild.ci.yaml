@@ -1,0 +1,12 @@
+steps:
+  - name: 'golang:latest'
+    entrypoint: /bin/sh
+    args: ['-c', 'go test -v ./src/...']
+
+  - name: 'golang:latest'
+    entrypoint: /bin/sh
+    args: ['-c', 'go vet ./src/...']
+
+options:
+  env:
+    - 'CGO_ENABLED=0'
