@@ -54,6 +54,7 @@ func (gh *gachaHandler) Draw(w http.ResponseWriter, r *http.Request) {
 		result := response.GachaResult{
 			CharacterID: strconv.Itoa(ce.Id),
 			Name:        ce.Name,
+			IconURL:     ce.IconURL,
 		}
 		results = append(results, result)
 	}

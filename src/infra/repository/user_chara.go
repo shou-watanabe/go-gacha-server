@@ -17,7 +17,7 @@ func NewUserCharaRepository(db *sql.DB) repository.UserCharaRepository {
 }
 
 func (ucr *userCharaRepository) List(ctx context.Context, ue entity.User) ([]*entity.UserChara, error) {
-	const list = `SELECT user_character_possessions.id, characters.id, characters.name, rarities.rarity, rarities.probability FROM user_character_possessions INNER JOIN characters ON user_character_possessions.character_id = characters.id INNER JOIN rarities ON characters.rarity_id = rarities.id WHERE user_character_possessions.user_id = ?`
+	const list = `SELECT user_character_possessions.id, characters.id, characters.name, characters.icon_url, rarities.rarity, rarities.probability FROM user_character_possessions INNER JOIN characters ON user_character_possessions.character_id = characters.id INNER JOIN rarities ON characters.rarity_id = rarities.id WHERE user_character_possessions.user_id = ?`
 
 	stmt, err := ucr.db.PrepareContext(ctx, list)
 	if err != nil {
@@ -36,7 +36,7 @@ func (ucr *userCharaRepository) List(ctx context.Context, ue entity.User) ([]*en
 		uce := &entity.UserChara{User: ue}
 		ce := &entity.Chara{}
 
-		err := rows.Scan(&uce.Id, &ce.Id, &ce.Name, &ce.Rarity, &ce.Probability)
+		err := rows.Scan(&uce.Id, &ce.Id, &ce.Name, &ce.IconURL, &ce.Rarity, &ce.Probability)
 		if err != nil {
 			return nil, err
 		}

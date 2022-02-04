@@ -17,7 +17,7 @@ func NewCharaRepository(db *sql.DB) repository.CharaRepository {
 }
 
 func (cr *charaRepository) List(ctx context.Context) ([]*entity.Chara, error) {
-	const list = `SELECT characters.id, characters.name, rarities.rarity, rarities.probability FROM characters, rarities where characters.rarity_id = rarities.id`
+	const list = `SELECT characters.id, characters.name, characters.icon_url, rarities.rarity, rarities.probability FROM characters, rarities where characters.rarity_id = rarities.id`
 
 	stmt, err := cr.db.PrepareContext(ctx, list)
 	if err != nil {
@@ -35,7 +35,7 @@ func (cr *charaRepository) List(ctx context.Context) ([]*entity.Chara, error) {
 	for rows.Next() {
 		ce := &entity.Chara{}
 
-		err := rows.Scan(&ce.Id, &ce.Name, &ce.Rarity, &ce.Probability)
+		err := rows.Scan(&ce.Id, &ce.Name, &ce.IconURL, &ce.Rarity, &ce.Probability)
 		if err != nil {
 			return nil, err
 		}
