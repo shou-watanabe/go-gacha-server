@@ -48,6 +48,7 @@ func (ch *charaHandler) List(w http.ResponseWriter, r *http.Request) {
 			UserCharacterID: strconv.Itoa(uce.User.Id),
 			CharacterID:     strconv.Itoa(uce.Chara.Id),
 			Name:            uce.Chara.Name,
+			IconURL:         uce.Chara.IconURL,
 		}
 		characters = append(characters, character)
 	}
