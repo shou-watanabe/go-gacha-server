@@ -1,5 +1,5 @@
 ## コンテナの中に入る
-docker container exec -it techtrain-mission_db_1 bash
+docker container exec -it go-gacha-server_db_1 bash
 
 ## mysqlに接続
 mysql -u root -p

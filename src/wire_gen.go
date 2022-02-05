@@ -8,9 +8,9 @@ package main
 
 import (
 	"database/sql"
-	"techtrain-mission/src/infra/repository"
-	"techtrain-mission/src/presen/handler"
-	"techtrain-mission/src/usecase"
+	"go-gacha-server/src/infra/repository"
+	"go-gacha-server/src/presen/handler"
+	"go-gacha-server/src/usecase"
 )
 
 import (

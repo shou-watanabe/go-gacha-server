@@ -9,9 +9,9 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
-	"techtrain-mission/src/infra/sql"
-	"techtrain-mission/src/presen/handler"
-	"techtrain-mission/src/utils"
+	"go-gacha-server/src/infra/sql"
+	"go-gacha-server/src/presen/handler"
+	"go-gacha-server/src/utils"
 )
 
 func main() {

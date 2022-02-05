@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"techtrain-mission/src/domain/entity"
+	"go-gacha-server/src/domain/entity"
 )
 
 type CharaRepository interface {

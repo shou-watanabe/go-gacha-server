@@ -2,9 +2,9 @@ package mock_repository
 
 import (
 	context "context"
+	"go-gacha-server/src/domain/entity"
+	"go-gacha-server/src/usecase"
 	reflect "reflect"
-	"techtrain-mission/src/domain/entity"
-	"techtrain-mission/src/usecase"
 	"testing"
 
 	"github.com/golang/mock/gomock"

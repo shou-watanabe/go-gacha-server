@@ -6,7 +6,7 @@ import (
 
 	"go.uber.org/zap"
 
-	"techtrain-mission/src/core/context"
+	"go-gacha-server/src/core/context"
 )
 
 func HttpLogging(msg string, r *http.Request, start time.Time, latency int64) {

@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"log"
 
-	"techtrain-mission/src/config"
+	"go-gacha-server/src/config"
 )
 
 func NewDriver() *sql.DB {

@@ -2,8 +2,8 @@ package usecase
 
 import (
 	"context"
-	"techtrain-mission/src/domain/entity"
-	"techtrain-mission/src/domain/repository"
+	"go-gacha-server/src/domain/entity"
+	"go-gacha-server/src/domain/repository"
 )
 
 type CharaUsecase interface {

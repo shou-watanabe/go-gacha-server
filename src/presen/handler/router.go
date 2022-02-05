@@ -1,8 +1,8 @@
 package handler
 
 import (
+	"go-gacha-server/src/presen/middleware"
 	"net/http"
-	"techtrain-mission/src/presen/middleware"
 )
 
 func InitRouting(userHandler UserHandler, charaHandler CharaHandler, gachaHandler GachaHandler) {

@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"net/http"
 
-	myError "techtrain-mission/src/core/error"
-	"techtrain-mission/src/presen/request"
-	"techtrain-mission/src/presen/response"
-	"techtrain-mission/src/usecase"
+	myError "go-gacha-server/src/core/error"
+	"go-gacha-server/src/presen/request"
+	"go-gacha-server/src/presen/response"
+	"go-gacha-server/src/usecase"
 
 	"go.uber.org/zap"
 )

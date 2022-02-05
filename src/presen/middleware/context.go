@@ -3,7 +3,7 @@ package middleware
 import (
 	"net/http"
 
-	"techtrain-mission/src/core/context"
+	"go-gacha-server/src/core/context"
 )
 
 func Context(h http.Handler) http.Handler {

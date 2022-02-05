@@ -8,9 +8,9 @@ import (
 
 	"github.com/google/wire"
 
-	"techtrain-mission/src/infra/repository"
-	"techtrain-mission/src/presen/handler"
-	"techtrain-mission/src/usecase"
+	"go-gacha-server/src/infra/repository"
+	"go-gacha-server/src/presen/handler"
+	"go-gacha-server/src/usecase"
 )
 
 func initUserHandler(driver *sql.DB) handler.UserHandler {

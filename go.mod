@@ -1,4 +1,4 @@
-module techtrain-mission
+module go-gacha-server
 
 go 1.17
 

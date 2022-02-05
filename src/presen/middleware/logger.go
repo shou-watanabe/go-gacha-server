@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"time"
 
-	"techtrain-mission/src/core/logger"
+	"go-gacha-server/src/core/logger"
 )
 
 func Logger(next http.Handler) http.Handler {

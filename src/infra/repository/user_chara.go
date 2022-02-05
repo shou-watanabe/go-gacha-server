@@ -4,8 +4,8 @@ import (
 	"context"
 	"database/sql"
 
-	"techtrain-mission/src/domain/entity"
-	"techtrain-mission/src/domain/repository"
+	"go-gacha-server/src/domain/entity"
+	"go-gacha-server/src/domain/repository"
 )
 
 type userCharaRepository struct {
